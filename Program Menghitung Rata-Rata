@@ -1,0 +1,83 @@
+import matplotlib.pyplot as plt
+
+# FUNGSI-FUNGSI PROGRAM
+
+def input_data():
+    """Meminta user memasukkan sejumlah data ke dalam list."""
+    data = []
+    n = int(input("Berapa jumlah data? "))
+    for i in range(n):
+        nilai = float(input(f"Masukkan data ke-{i+1}: "))
+        data.append(nilai)
+    return data
+
+
+def hitung_rata(data):
+    """Menghitung nilai rata-rata."""
+    if len(data) == 0:
+        return None
+    return sum(data) / len(data)
+
+
+def tampilkan_plot(data):
+    """Menampilkan grafik garis dan grafik batang."""
+    if len(data) == 0:
+        print("Tidak ada data untuk diplot.")
+        return
+
+    plt.figure(figsize=(8,4))
+
+    # Grafik garis
+    plt.subplot(1,2,1)
+    plt.plot(data, marker='o')
+    plt.title("Grafik Garis")
+    plt.xlabel("Index")
+    plt.ylabel("Nilai")
+
+    # Grafik batang
+    plt.subplot(1,2,2)
+    plt.bar(range(len(data)), data)
+    plt.title("Grafik Batang")
+    plt.xlabel("Index")
+    plt.ylabel("Nilai")
+
+    plt.tight_layout()
+    plt.show()
+
+# PROGRAM UTAMA (LOOPING)
+
+data = []
+
+while True:
+    print("\n===== MENU PROGRAM SEDERHANA =====")
+    print("1. Input Data")
+    print("2. Lihat Data")
+    print("3. Hitung Rata-Rata")
+    print("4. Tampilkan Grafik")
+    print("5. Keluar")
+
+    pilihan = input("Pilih menu (1-5): ")
+
+    if pilihan == "1":
+        data = input_data()
+        print("Data berhasil disimpan!")
+
+    elif pilihan == "2":
+        print("Data:", data if data else "Belum ada data")
+
+    elif pilihan == "3":
+        rata = hitung_rata(data)
+        if rata is not None:
+            print(f"Rata-rata data = {rata:.2f}")
+        else:
+            print("Data masih kosong!")
+
+    elif pilihan == "4":
+        tampilkan_plot(data)
+
+    elif pilihan == "5":
+        print("Program selesai. Terima kasih!")
+        break
+
+    else:
+        print("Pilihan tidak valid, coba lagi!")
